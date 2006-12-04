@@ -1,0 +1,53 @@
+----------------------------------------
+Mon Dec  4 11:33:27 EST 2006
+
+	The current state of this code is that it's in the middle
+	of a redesign.
+
+	I'm working to try to improve upon my "lithp" project, and
+	came up with some good ideas to do so... however, I hit a
+	few snags in that I redesigned some of the old stuff, without
+	considering why it was designed the way it was, and I ended
+	up speeding into a dead end street.
+
+	I should be re-crunching on this shortly, to produce a
+	version 1.0 release soon.
+
+
+----------------------------------------
+Mon Nov 27 15:40:36 EST 2006
+
+	Okay, the current line of thinking needs to change.
+
+	the parser needs to be recursive.  I can't have the 'parse string'
+	work like it is.  I think i need to return to the "getc" and "ungetc"
+	methods from before.
+
+	I should instead have parseString be a wrapper around it:
+
+	lithp_parseFile( char filename );
+	lithp_parseFILE( FILE * fp );
+	lithp_parseString( char buffer );
+
+	STATE * lithp_state_duplicate( STATE * );
+
+	HASH * lithp_hash_duplicate( HASH * );
+
+	STATE * lithp_eval( STATE *, LEAF * );
+	STATE * lithp_eval( STATE * );
+	{
+		lithp_eval( STATE, STATE->Unprocessed );
+		lithp_remove( STATE->unprocessed );
+	}
+	STATE * lithp_eval_string( STATE *, char * string )
+	{
+		readString
+		eval
+	}
+
+	STATE * lithp_register_function( STATE *, char * fname, fcn, min, max )
+	
+
+	the idea is that you read in any lines you need to read in, then
+	you run the evauluate() on it, and all of the items you read in
+	will get evaluated into the main frey.
